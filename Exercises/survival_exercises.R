@@ -66,7 +66,7 @@ bca_codelist <- getDescendants(
   conceptId = 4112853
 ) # 278
 
-# export the codelists
+# export the codelists (to add in)
 # list(bca_cancer_codes = bca_codelist$concept_id) |>
 #   omopgenerics::newCodelist() |>
 #   omopgenerics::exportCodelist(path = here::here("concepts"), type = "csv")
@@ -87,7 +87,6 @@ cdm[["bca_cancer"]] <- conceptCohort(cdm,
 cohortCount(cdm[["bca_cancer"]])
 
 # add age group to cohort
-
 cdm[["bca_cancer"]] <- cdm[["bca_cancer"]] %>% 
   PatientProfiles::addDemographics(
     ageGroup = list(
@@ -102,14 +101,10 @@ cdm[["bca_cancer"]] <- cdm[["bca_cancer"]] %>%
 
 
 
-#get outcome cohort for survival (i.e. death) - hint look at cohortconstructer for a handy function
+#get outcome cohort for survival (i.e. death)
 cdm$death_cohort <- deathCohort(cdm, name = "death_cohort")
 
-# counts of deaths in cohort
-cohortCount(cdm[["death_cohort"]])
-
-
-# basic survival
+# basic survival stratified by age and sex
 bca_death <- estimateSingleEventSurvival(cdm = cdm,
                                          targetCohortTable = "bca_cancer",
                                          outcomeCohortTable = "death_cohort",
@@ -120,7 +115,7 @@ bca_death <- estimateSingleEventSurvival(cdm = cdm,
                                          ))
                                          
 
-
+# get a table of results with different survival probability times
 tableSurvival(bca_death %>% filter(strata_name != "overall" &
                                      strata_name != "sex" ),
               timeScale = "days",
@@ -145,14 +140,7 @@ plotSurvival(bca_death %>% filter(strata_name != "overall" &
 
 
 
-
-
-
-# export the codelists
-# list(lca_cancer_codes = lca_codelist$concept_id) |>
-#   omopgenerics::newCodelist() |>
-#   omopgenerics::exportCodelist(path = here::here("concepts"), type = "csv")
-
+# could stratify by other variables?
 
 # condition_concept_id     n concept_name             
 # <int> <dbl> <chr>                    
@@ -161,6 +149,9 @@ plotSurvival(bca_death %>% filter(strata_name != "overall" &
 # 3               313217   797 Atrial fibrillation      
 # 4               321042   531 Cardiac arrest           
 # 5              4329847   465 Myocardial infarction   
+
+
+# survival with heart data
 
 ca_heart_codelists <- getDescendants(
   
@@ -175,13 +166,14 @@ ca_heart_codelists <- getDescendants(
 
 
 
+# create cohort of people with Coronary arteriosclerosis
 cdm[["ca"]] <- conceptCohort(cdm,
-                                     conceptSet = list(ca_heart_codelists = ca_heart_codelists$concept_id),
-                                     name = "ca",
-                                     exit = "event_end_date",
-                                     useSourceFields = FALSE,
-                                     subsetCohort = NULL,
-                                     subsetCohortId = NULL
+                             conceptSet = list(ca_heart_codelists = ca_heart_codelists$concept_id),
+                             name = "ca",
+                             exit = "event_end_date",
+                             useSourceFields = FALSE,
+                             subsetCohort = NULL,
+                             subsetCohortId = NULL
 )
 
 
@@ -197,9 +189,7 @@ cdm[["ca"]] <- cdm[["ca"]] %>%
         list(
           "0 to 59" = c(0, 59),
           "60 +" = c(60, Inf)
-          
-          
-          
+
         )
     )
   )
@@ -207,7 +197,7 @@ cdm[["ca"]] <- cdm[["ca"]] %>%
 
 
 
-#get outcome cohort for survival (i.e. death) - hint look at cohortconstructer for a handy function
+#get outcome cohort for survival (i.e. death) 
 cdm$death_cohort <- deathCohort(cdm, name = "death_cohort")
 
 
@@ -251,7 +241,7 @@ plotSurvival(ca_death %>% filter(strata_name != "overall" &
              riskInterval = 360 )
 
 
-
+# instead of death can look for other events like MI
 #ca to MI
 mi_heart_codelists <- getDescendants(
   
@@ -274,19 +264,20 @@ cdm[["mi"]] <- conceptCohort(cdm,
 
 
 
+# estimate survival
 ca_mi <- estimateSingleEventSurvival(cdm = cdm,
-                                        targetCohortTable = "ca",
-                                        outcomeCohortTable = "mi",
-                                        followUpDays = 3650,
-                                        strata = list(c("age_group"),
-                                                      c("sex"),
-                                                      c("age_group", "sex"))
-                                                      
-                                        )
+                                     targetCohortTable = "ca",
+                                     outcomeCohortTable = "mi",
+                                     followUpDays = 3650,
+                                     strata = list(c("age_group"),
+                                                   c("sex"),
+                                                   c("age_group", "sex"))
+                                     
+)
 
 
 
-
+# table it
 tableSurvival(ca_mi %>% filter(strata_name != "overall" &
                                     strata_name != "sex" ),
               timeScale = "days",
@@ -324,7 +315,7 @@ plotSurvival(ca_mi %>% filter(strata_name != "overall" &
 
 
 
-# competing risk
+# competing risks # extra points #
 
 "We estimated the probability of heart attack following atherosclerosis diagnosis, 
 accounting for death as a competing risk. The 5-year cumulative incidence of heart
@@ -344,7 +335,6 @@ ca_mi_death <- estimateCompetingRiskSurvival(cdm,
                                                            c("sex"),
                                                            c("age_group", "sex"))
 ) 
-
 
 
 plotSurvival(ca_mi_death %>% filter(strata_name == "sex" ), cumulativeFailure = TRUE,
