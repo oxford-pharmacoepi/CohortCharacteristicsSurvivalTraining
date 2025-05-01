@@ -1,4 +1,4 @@
-# Excercises
+# Exercises
 
 Make sure you have worked your way through the CodeToRun.R
 
