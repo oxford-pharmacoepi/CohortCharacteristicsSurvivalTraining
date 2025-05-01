@@ -87,8 +87,13 @@
     "CohortConstructor": {
       "Package": "CohortConstructor",
       "Version": "0.3.5",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "CohortConstructor",
+      "RemoteUsername": "ohdsi",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "62668527af552f59cbb409e41d298efc4e1ecb8c",
       "Requirements": [
         "CDMConnector",
         "PatientProfiles",
@@ -106,7 +111,7 @@
         "tidyr",
         "utils"
       ],
-      "Hash": "ded82632abd9d52a804568132a123324"
+      "Hash": "afaef280b9b0f5fac84a6e66296e6e6e"
     },
     "CohortSurvival": {
       "Package": "CohortSurvival",
