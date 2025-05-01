@@ -64,7 +64,7 @@ cdm[["ca"]] <- conceptCohort(cdm,
 
 cdm[["heart_attack"]] <- conceptCohort(cdm,
                              conceptSet = list(mi_heart_codelists = mi_heart_codelists$concept_id),
-                             name = "mi",
+                             name = "heart_attack",
                              exit = "event_end_date",
                              useSourceFields = FALSE,
                              subsetCohort = NULL,

@@ -91,7 +91,7 @@ plotSurvival(survival_analysis %>% filter(strata_name != "overall" &
 
 ca_mi_death <- estimateCompetingRiskSurvival(cdm,
                                              targetCohortTable = "ca",
-                                             outcomeCohortTable = "mi",
+                                             outcomeCohortTable = "heart_attack",
                                              competingOutcomeCohortTable = "death_cohort",
                                              followUpDays = 1825,
                                              strata = list(c("age_group"),
