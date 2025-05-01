@@ -2,6 +2,9 @@
 renv::activate()
 renv::restore()
 
+install.packages("devtools")
+devtools::install_github("ohdsi/CohortConstructor") # need github version for deathCohort function
+
 # call the packages in the library
 library(CDMConnector)
 library(CohortSurvival)
