@@ -4,14 +4,13 @@
 
 # You should have already worked your way through the CodeToRun.R file and have your main cohorts instantiated (breast cancer, heart attack etc)
 
-
 # 1: add in demographics ------------- 
 # (*tip we have small databases so dont go crazy)
 # stuck filling code for age bands? look at AddAge to see how the code is structured:
 # https://darwin-eu.github.io/PatientProfiles/articles/demographics.html
 
 cdm[["..."]] <- cdm[["..."]] %>% 
-  PatientProfiles::addDemographics(
+  addDemographics(
     ageGroup = list(
       "age_group" =
         list(
@@ -19,8 +18,6 @@ cdm[["..."]] <- cdm[["..."]] %>%
         )
     )
   )
-
-
 
 # 2: get your outcome cohorts ----------------
 # Choices what is your outcome? 1) death or 2) another condition - you decide :)
@@ -33,14 +30,12 @@ cdm$death_cohort <- deathCohort(cdm, name = "death_cohort")
 # have a think about different settings and the impact of these
 # ?? estimateSingleEventSurvival
 survival_analysis <- estimateSingleEventSurvival(cdm = cdm,
-                                         targetCohortTable = "...",
-                                         outcomeCohortTable = "...",
-                                         followUpDays = 1825, # or choose your own
-                                         strata = list(c("age_group"),
-                                                       c("sex")
-                                         ))
-
-
+                                                 targetCohortTable = "...",
+                                                 outcomeCohortTable = "...",
+                                                 followUpDays = 1825, # or choose your own
+                                                 strata = list(c("age_group"),
+                                                               c("sex")
+                                                 ))
 
 # 4: tablulate results ---------------------
 
@@ -49,22 +44,20 @@ survival_analysis <- estimateSingleEventSurvival(cdm = cdm,
 # we are only interested in age stratifications
 # have a think of the survival probabilities and at what time you want to focus on
 
-tableSurvival(survival_analysis %>% filter(strata_name != "overall" &
-                                     strata_name != "sex" ),
-              timeScale = "days",
-              times = c("...")) # add in some times e.g 365, 720 etc
-
+survival_analysis |> 
+  filterStrata(age_group != "overall") |>
+  tableSurvival(timeScale = "days",
+                times = c("...")) # add in some times e.g 365, 720 etc
 
 # 5: Create plots ---------------------------
 # again you can filter your results to plot the ones you are interested in
 # are there differences in sex and age?
-plotSurvival(survival_analysis %>% filter(strata_name != "overall" &
-                                    strata_name != "sex" ), 
-             riskTable = TRUE, # do you want the risk table underneath the plot?
-             ribbon = FALSE, # do you want the confidence intervals?
-             colour = "age_group",
-             riskInterval = 180 )
-
+survival_analysis |> 
+  filterStrata(age_group != "overall") |>
+  plotSurvival(riskTable = TRUE, # do you want the risk table underneath the plot?
+               ribbon = FALSE, # do you want the confidence intervals?
+               colour = "age_group",
+               riskInterval = 180 )
 
 # 6: put the results into a powerpoint
 
@@ -89,21 +82,20 @@ plotSurvival(survival_analysis %>% filter(strata_name != "overall" &
 ###################################################################################
 # competing risks # extra code #
 
-ca_mi_death <- estimateCompetingRiskSurvival(cdm,
+ca_mi_death <- estimateCompetingRiskSurvival(cdm = cdm,
                                              targetCohortTable = "ca",
                                              outcomeCohortTable = "heart_attack",
                                              competingOutcomeCohortTable = "death_cohort",
                                              followUpDays = 1825,
                                              strata = list(c("age_group"),
                                                            c("sex"),
-                                                           c("age_group", "sex"))
-) 
+                                                           c("age_group", "sex"))) 
 
+ca_mi_death |>
+  filterStrata(age_group == "overall") |> # to get only sex stratifications
+  plotSurvival(cumulativeFailure = TRUE,
+               colour = c("variable", "sex"))
 
-plotSurvival(ca_mi_death %>% filter(strata_name == "sex" ), cumulativeFailure = TRUE,
-             colour = c("variable", "sex"))
-
-
-tableSurvival(ca_mi_death %>% filter(strata_name == "sex" )) 
-
-
+ca_mi_death |> 
+  filterStrata(age_group == "overall") |> # to get only sex stratifications
+  tableSurvival() 
