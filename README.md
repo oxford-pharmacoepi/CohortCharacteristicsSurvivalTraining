@@ -1,10 +1,10 @@
 # CohortCharacteristics and CohortSurvival Training
 
-This training is split into introductory presentations and practical exercises. The website containing the all presentations and exercises can be found. [here](https://oxford-pharmacoepi.github.io/CohortCharacteristicsSurvivalTraining/)
+This training is split into introductory presentations and practical exercises. The website containing all presentations and exercises can be found. [here](https://oxford-pharmacoepi.github.io/CohortCharacteristicsSurvivalTraining/)
 
 ## Presentations
-**CohortCharacteristics**: [here](https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-team-training)
-**CohortSurvival**: [here](https://dpa-pde-oxford.quarto.pub/cohortsurvival/)
+  **CohortCharacteristics**: [here](https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-team-training)
+  **CohortSurvival**: [here](https://dpa-pde-oxford.quarto.pub/cohortsurvival/)
 
 ## Practical Exercises
 The practical exercises for both packages can be found [here](https://github.com/oxford-pharmacoepi/CohortCharacteristicsSurvivalTraining/tree/main/Exercises).
