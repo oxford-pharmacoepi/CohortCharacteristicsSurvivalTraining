@@ -14,27 +14,6 @@
     "text": "If you prefer you can find the presentation in full page here."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "CohortCharacteristics and CohortSurvival training",
-    "section": "",
-    "text": "Summarise and visualise the characteristics of patients in data mapped to the Observational Medical Outcomes Partnership (OMOP) common data model (CDM).\n\n\n\nEstimate survival using data mapped to the Observational Medical Outcomes Partnership common data model. Survival can be estimated based on user-defined study cohorts."
-  },
-  {
-    "objectID": "index.html#training",
-    "href": "index.html#training",
-    "title": "CohortCharacteristics and CohortSurvival training",
-    "section": "",
-    "text": "Summarise and visualise the characteristics of patients in data mapped to the Observational Medical Outcomes Partnership (OMOP) common data model (CDM).\n\n\n\nEstimate survival using data mapped to the Observational Medical Outcomes Partnership common data model. Survival can be estimated based on user-defined study cohorts."
-  },
-  {
-    "objectID": "index.html#plan",
-    "href": "index.html#plan",
-    "title": "CohortCharacteristics and CohortSurvival training",
-    "section": "Plan",
-    "text": "Plan\n\n\n\nTime\nTopic\nStaring\n\n\n\n\n12:00 - 12:30\nCohortCharacteristics\nMike\n\n\n12:30 - 12:50\nCohortSurvival\nKim\n\n\n12:50 - 13:00\nBreak\n-\n\n\n13:00 - 13:30\nPractical\nAll"
-  },
-  {
     "objectID": "practical.html",
     "href": "practical.html",
     "title": "CohortCharacteristics and CohortSurvival training",
@@ -63,17 +42,38 @@
     "text": "Cohorts and codelist\nWe have created 3 codelists to generate cohorts:\n\nbreast_cancer\ncoronary_arteriosclerosis\nheart_attack\n\nNote there is a getCodelists.R with the code to generate the codelists.\nYou can instantiate those cohorts with the following code:\n\nlibrary(omopgenerics)\nlibrary(CohortConstructor)\n\ncancer &lt;- importCodelist(path = here(\"codelists\", \"index\"), type = \"csv\")\ncdm$index_cohorts &lt;- conceptCohort(cdm = cdm,\n                                   conceptSet = cancer,\n                                   name = \"index_cohorts\",\n                                   exit = \"event_end_date\",\n                                   useSourceFields = FALSE,\n                                   subsetCohort = NULL,\n                                   subsetCohortId = NULL)\n\nNow we are ready to start the characterisation and survival practicals take a look to the CodeToRun.R file that contains what we have done so far and we are ready to start with the exercises:\n\ncohort_characteristics.R\ncohort_survival.R"
   },
   {
-    "objectID": "cohort_charactersitics.html",
-    "href": "cohort_charactersitics.html",
+    "objectID": "cohort_characteristics.html",
+    "href": "cohort_characteristics.html",
     "title": "CohortCharacteristics and CohortSurvival training",
     "section": "",
     "text": "If you prefer you can find the presentation in full page here."
   },
   {
-    "objectID": "cohort_charactersitics.html#presentation",
-    "href": "cohort_charactersitics.html#presentation",
+    "objectID": "cohort_characteristics.html#presentation",
+    "href": "cohort_characteristics.html#presentation",
     "title": "CohortCharacteristics and CohortSurvival training",
     "section": "",
     "text": "If you prefer you can find the presentation in full page here."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "CohortCharacteristics and CohortSurvival training",
+    "section": "",
+    "text": "Summarise and visualise the characteristics of patients in data mapped to the Observational Medical Outcomes Partnership (OMOP) common data model (CDM).\n\n\n\nEstimate survival using data mapped to the Observational Medical Outcomes Partnership common data model. Survival can be estimated based on user-defined study cohorts."
+  },
+  {
+    "objectID": "index.html#training",
+    "href": "index.html#training",
+    "title": "CohortCharacteristics and CohortSurvival training",
+    "section": "",
+    "text": "Summarise and visualise the characteristics of patients in data mapped to the Observational Medical Outcomes Partnership (OMOP) common data model (CDM).\n\n\n\nEstimate survival using data mapped to the Observational Medical Outcomes Partnership common data model. Survival can be estimated based on user-defined study cohorts."
+  },
+  {
+    "objectID": "index.html#plan",
+    "href": "index.html#plan",
+    "title": "CohortCharacteristics and CohortSurvival training",
+    "section": "Plan",
+    "text": "Plan\n\n\n\nTime\nTopic\nStaring\n\n\n\n\n12:00 - 12:30\nCohortCharacteristics\nMike\n\n\n12:30 - 12:50\nCohortSurvival\nKim\n\n\n12:50 - 13:00\nBreak\n-\n\n\n13:00 - 13:30\nPractical\nAll"
   }
 ]
