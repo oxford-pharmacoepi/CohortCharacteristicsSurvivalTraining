@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -154,10 +189,14 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Open the <strong>Exercises</strong> project. Note your project is correctly open if in the top right of your R studio session it says <em>Exercises</em>.</p></li>
 <li><p>Open the <em>CodeToRun.R</em> file and install packages. Particulary, take install the development version of CohortCharacteristics.</p></li>
 </ol>
-<pre><code>library(pak)
-pkg_install("darwin-eu/CohortCharacteristics@release_100")</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pak)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pkg_install</span>(<span class="st">"darwin-eu/CohortCharacteristics@release_100"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>If you have problems installing the development version feel free to install from cran, just note that the new functions related to Large Scale Characteristics visualisation won’t be available for you. In that case you can install the cran version:</p>
-<pre><code>install.packages("CohortCharacteristics")</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"CohortCharacteristics"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="databases" class="level2">
 <h2 class="anchored" data-anchor-id="databases">Databases</h2>
@@ -175,25 +214,29 @@ pkg_install("darwin-eu/CohortCharacteristics@release_100")</code></pre>
 <section id="download-data-sets" class="level3">
 <h3 class="anchored" data-anchor-id="download-data-sets">Download data sets</h3>
 <p>Once selected the data set you are interested in you can download it using the following code:</p>
-<pre><code>library(here)
-library(CDMConnector)
-
-dbName &lt;- '...'
-
-# download the dataset
-Sys.setenv("EUNOMIA_DATA_FOLDER" = here())
-downloadEunomiaData(datasetName = dbName)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CDMConnector)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>dbName <span class="ot">&lt;-</span> <span class="st">'...'</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># download the dataset</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="st">"EUNOMIA_DATA_FOLDER"</span> <span class="ot">=</span> <span class="fu">here</span>())</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">downloadEunomiaData</span>(<span class="at">datasetName =</span> dbName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Then you can create the cdm_reference object as ususal:</p>
-<pre><code>library(duckdb)
-
-# create connection
-con &lt;- dbConnect(drv = duckdb(dbdir = eunomiaDir(datasetName = dbName)))
-
-# create cdm object
-cdm &lt;- cdmFromCon(con = con,
-                  cdmSchema = "main", 
-                  writeSchema = "main",
-                  cdmName = dbName)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create connection</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="at">drv =</span> <span class="fu">duckdb</span>(<span class="at">dbdir =</span> <span class="fu">eunomiaDir</span>(<span class="at">datasetName =</span> dbName)))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># create cdm object</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">cdmFromCon</span>(<span class="at">con =</span> con,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cdmSchema =</span> <span class="st">"main"</span>, </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">writeSchema =</span> <span class="st">"main"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cdmName =</span> dbName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Note the code is also available in the <code>CodeToRun.R</code> file.</p>
 </section>
 </section>
@@ -207,17 +250,19 @@ cdm &lt;- cdmFromCon(con = con,
 </ul>
 <p>Note there is a <code>getCodelists.R</code> with the code to generate the codelists.</p>
 <p>You can instantiate those cohorts with the following code:</p>
-<pre><code>library(omopgenerics)
-library(CohortConstructor)
-
-cancer &lt;- importCodelist(path = here("codelists", "index"), type = "csv")
-cdm$index_cohorts &lt;- conceptCohort(cdm = cdm,
-                                   conceptSet = cancer,
-                                   name = "index_cohorts",
-                                   exit = "event_end_date",
-                                   useSourceFields = FALSE,
-                                   subsetCohort = NULL,
-                                   subsetCohortId = NULL)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(omopgenerics)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CohortConstructor)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cancer <span class="ot">&lt;-</span> <span class="fu">importCodelist</span>(<span class="at">path =</span> <span class="fu">here</span>(<span class="st">"codelists"</span>, <span class="st">"index"</span>), <span class="at">type =</span> <span class="st">"csv"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>cdm<span class="sc">$</span>index_cohorts <span class="ot">&lt;-</span> <span class="fu">conceptCohort</span>(<span class="at">cdm =</span> cdm,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">conceptSet =</span> cancer,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">name =</span> <span class="st">"index_cohorts"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">exit =</span> <span class="st">"event_end_date"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">useSourceFields =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">subsetCohort =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">subsetCohortId =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Now we are ready to start the characterisation and survival practicals take a look to the <code>CodeToRun.R</code> file that contains what we have done so far and we are ready to start with the exercises:</p>
 <ul>
 <li><code>cohort_characteristics.R</code></li>
