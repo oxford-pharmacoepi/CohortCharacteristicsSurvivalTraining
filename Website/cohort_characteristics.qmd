@@ -1,10 +1,10 @@
 
 ## Presentation
 
-<iframe src="https://dpa-pde-oxford.quarto.pub/cohortcharacteristics/#/title-slide" 
+<iframe src="https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-team-training/#/title-slide" 
         width="100%" 
         height="600px" 
         style="border: none;">
 </iframe>
 
-If you prefer you can find the presentation in full page [here](https://dpa-pde-oxford.quarto.pub/cohortcharacteristics/#/title-slide).
+If you prefer you can find the presentation in full page [here](https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-team-training/#/title-slide).
