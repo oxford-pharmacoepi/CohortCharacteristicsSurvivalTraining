@@ -18,10 +18,10 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Render Quarto Project
-        run: quarto render
+        run: quarto render Website
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site  # Or change this if your site outputs elsewhere
+          publish_dir: ./Website/_site
