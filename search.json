@@ -26,5 +26,26 @@
     "title": "CohortCharacteristics and CohortSurvival training",
     "section": "Let’s get started",
     "text": "Let’s get started\nDownload repo"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "CohortCharacteristics and CohortSurvival training",
+    "section": "",
+    "text": "Summarise and visualise the characteristics of patients in data mapped to the Observational Medical Outcomes Partnership (OMOP) common data model (CDM).\n\n\n\nEstimate survival using data mapped to the Observational Medical Outcomes Partnership common data model. Survival can be estimated based on user-defined study cohorts."
+  },
+  {
+    "objectID": "index.html#training",
+    "href": "index.html#training",
+    "title": "CohortCharacteristics and CohortSurvival training",
+    "section": "",
+    "text": "Summarise and visualise the characteristics of patients in data mapped to the Observational Medical Outcomes Partnership (OMOP) common data model (CDM).\n\n\n\nEstimate survival using data mapped to the Observational Medical Outcomes Partnership common data model. Survival can be estimated based on user-defined study cohorts."
+  },
+  {
+    "objectID": "index.html#plan",
+    "href": "index.html#plan",
+    "title": "CohortCharacteristics and CohortSurvival training",
+    "section": "Plan",
+    "text": "Plan\n\n\n\nTime\nTopic\nStaring\n\n\n\n\n12:00 - 12:30\nCohortCharacteristics\nMike\n\n\n12:30 - 13:00\nCohortSurvival\nKim\n\n\n13:00 - 13:30\nPractical\nAll"
   }
 ]
