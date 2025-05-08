@@ -32,6 +32,7 @@ cdm$death_cohort <- deathCohort(cdm, name = "death_cohort")
 survival_analysis <- estimateSingleEventSurvival(cdm = cdm,
                                                  targetCohortTable = "...",
                                                  outcomeCohortTable = "...",
+                                                 targetCohortId = "...", # run on all index cohorts or select one?
                                                  followUpDays = 1825, # or choose your own
                                                  strata = list(c("age_group"),
                                                                c("sex")
