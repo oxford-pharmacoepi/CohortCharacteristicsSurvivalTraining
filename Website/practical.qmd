@@ -9,14 +9,14 @@ In this practical we are going to apply what we have learned from both presentat
 
 3. Open the *CodeToRun.R* file and install packages. Particulary, take install the development version of CohortCharacteristics.
 
-```
+```{r, eval=FALSE}
 library(pak)
 pkg_install("darwin-eu/CohortCharacteristics@release_100")
 ```
 
 If you have problems installing the development version feel free to install from cran, just note that the new functions related to Large Scale Characteristics visualisation won't be available for you. In that case you can install the cran version:
 
-```
+```{r, eval=FALSE}
 install.packages("CohortCharacteristics")
 ```
 
@@ -39,7 +39,7 @@ Both databases are a ~10,000 individual database of around 800 MB (it can take a
 
 Once selected the data set you are interested in you can download it using the following code:
 
-```
+```{r, eval=FALSE}
 library(here)
 library(CDMConnector)
 
@@ -52,7 +52,7 @@ downloadEunomiaData(datasetName = dbName)
 
 Then you can create the cdm_reference object as ususal:
 
-```
+```{r, eval=FALSE}
 library(duckdb)
 
 # create connection
@@ -79,7 +79,7 @@ Note there is a `getCodelists.R` with the code to generate the codelists.
 
 You can instantiate those cohorts with the following code:
 
-```
+```{r, eval=FALSE}
 library(omopgenerics)
 library(CohortConstructor)
 
