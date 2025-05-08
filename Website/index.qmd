@@ -1,2 +1,19 @@
 
 ## Training
+
+### CohortCharacteristics
+
+Summarise and visualise the characteristics of patients in data mapped to the Observational Medical Outcomes Partnership (OMOP) common data model (CDM).
+
+### CohortSurvival
+
+Estimate survival using data mapped to the Observational Medical Outcomes Partnership common data model. Survival can be estimated based on user-defined study cohorts.
+
+## Plan
+
+| Time     | Topic | Staring   |
+|----------|-------|-----------|
+| 12:00 - 12:30 | CohortCharacteristics  | Mike |
+| 12:30 - 13:00 | CohortSurvival  | Kim    |
+| 13:00 - 13:30 | Practical  | All |
+
