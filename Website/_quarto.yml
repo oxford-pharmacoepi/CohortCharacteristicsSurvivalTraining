@@ -1,0 +1,34 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "CohortCharacteristics and CohortSurvival training"
+  search: false
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/oxford-pharmacoepi/CohortCharacteristicsSurvivalTraining
+    left:
+      - text: "CohortCharacteristics"
+        menu:
+          - text: "Presentation"
+            href: https://TBC.com
+          - text: "Online documentation"
+            href: https://darwin-eu.github.io/CohortCharacteristics/
+          - text: "CRAN"
+            href: https://cran.r-project.org/package=CohortCharacteristics
+          - text: "Manual"
+            href: https://cran.r-project.org/web/packages/CohortCharacteristics/CohortCharacteristics.pdf
+      - text: "CohortSurvival"
+        menu:
+          - text: "Presentation"
+            href: cohort_survival.qmd
+          - text: "Online documentation"
+            href: https://darwin-eu.github.io/CohortSurvival/
+          - text: "CRAN"
+            href: https://cran.r-project.org/package=CohortSurvival
+          - text: "Manual"
+            href: https://cran.r-project.org/web/packages/CohortSurvival/CohortSurvival.pdf
+      - text: "Practical"
+        href: practical.qmd
