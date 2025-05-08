@@ -16,6 +16,8 @@ website:
             href: cohort_characteristics.qmd
           - text: "Documentation"
             href: https://darwin-eu-dev.github.io/CohortCharacteristics/
+          - text: "Github"
+            href: https://github.com/darwin-eu/CohortCharacteristics/
           - text: "CRAN"
             href: https://cran.r-project.org/package=CohortCharacteristics
           - text: "Manual"
@@ -26,6 +28,8 @@ website:
             href: cohort_survival.qmd
           - text: "Documentation"
             href: https://darwin-eu-dev.github.io/CohortSurvival/
+          - text: "Github"
+            href: https://github.com/darwin-eu/CohortSurvival/
           - text: "CRAN"
             href: https://cran.r-project.org/package=CohortSurvival
           - text: "Manual"
