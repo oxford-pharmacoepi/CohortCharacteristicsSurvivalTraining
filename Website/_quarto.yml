@@ -13,9 +13,9 @@ website:
       - text: "CohortCharacteristics"
         menu:
           - text: "Presentation"
-            href: https://TBC.com
-          - text: "Online documentation"
-            href: https://darwin-eu.github.io/CohortCharacteristics/
+            href: cohort_characteristics.qmd
+          - text: "Documentation"
+            href: https://darwin-eu-dev.github.io/CohortCharacteristics/
           - text: "CRAN"
             href: https://cran.r-project.org/package=CohortCharacteristics
           - text: "Manual"
@@ -24,8 +24,8 @@ website:
         menu:
           - text: "Presentation"
             href: cohort_survival.qmd
-          - text: "Online documentation"
-            href: https://darwin-eu.github.io/CohortSurvival/
+          - text: "Documentation"
+            href: https://darwin-eu-dev.github.io/CohortSurvival/
           - text: "CRAN"
             href: https://cran.r-project.org/package=CohortSurvival
           - text: "Manual"

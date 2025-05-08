@@ -3,16 +3,24 @@
 install.packages("CDMConnector") # 2.0.0
 install.packages("omopgenerics") # 1.1.1
 install.packages("CohortSurvival") # 1.0.1
-install.packages("CohortCharacteristics") # 1.0.0
-install.packages("CohortConstructor") # 0.3.5
+install.packages("CohortConstructor") # 0.4.0
 install.packages("CodelistGenerator") # 3.5.0
 install.packages("visOmopResults") # 1.0.2
 install.packages("PatientProfiles") # 1.3.1
-install.packages("ggplot2") # 3.5.2
-install.packages("plotly") # 4.10.4
-install.packages("reactable") # 0.4.4
-install.packages("gt") # 1.0.0
-install.packages("duckdb") # 1.2.2
+install.packages("ggplot2") # Any
+install.packages("plotly") # Any
+install.packages("reactable") # Any
+install.packages("gt") # Any
+install.packages("duckdb") # Any
+install.packages("pak") # Any
+
+# In this practical, we will test the new release of CohortCharacteristics.
+# We'll install then the GitHub version.
+library(pak)
+pkg_install("darwin-eu/CohortCharacteristics@release_100")
+
+# Note: Typically, you'd install the CRAN version using:
+# install.packages("CohortCharacteristics")
 
 # call the packages in the library
 library(duckdb)
@@ -72,31 +80,31 @@ cdm$drug_exposure |>
   arrange(desc(n)) 
 
 # cancer codelists ----
-cancer <- importCodelist(path = here("codelists", "cancer"), type = "csv")
+cancer <- importCodelist(path = here("codelists", "index"), type = "csv")
 cancer
 # if you are interested in how we got these codelists see the code in:
 # `codelists/getCodelists.R` 
 
 # cancer cohorts ----
-cdm$cancer_cohorts <- conceptCohort(cdm = cdm,
-                                    conceptSet = cancer,
-                                    name = "cancer_cohorts",
-                                    exit = "event_end_date",
-                                    useSourceFields = FALSE,
-                                    subsetCohort = NULL,
-                                    subsetCohortId = NULL)
+cdm$index_cohorts <- conceptCohort(cdm = cdm,
+                                   conceptSet = cancer,
+                                   name = "index_cohorts",
+                                   exit = "event_end_date",
+                                   useSourceFields = FALSE,
+                                   subsetCohort = NULL,
+                                   subsetCohortId = NULL)
 
 # the cohort
-cdm$cancer_cohorts
+cdm$index_cohorts
 
 # settings
-settings(cdm$cancer_cohorts)
+settings(cdm$index_cohorts)
 
 # cohortCount
-cohortCount(cdm$cancer_cohorts)
+cohortCount(cdm$index_cohorts)
 
 # attrition
-attrition(cdm$cancer_cohorts)
+attrition(cdm$index_cohorts)
 
 # Next steps ----
 # Now we are ready for the next steps:

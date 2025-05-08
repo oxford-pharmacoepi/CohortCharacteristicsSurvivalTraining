@@ -18,12 +18,12 @@ mi_heart_codelists <- getDescendants(cdm = cdm, conceptId = 4329847)
 
 # export codelists
 list(
-  breat_cancer = bca_codelist$concept_id,
+  breast_cancer = bca_codelist$concept_id,
   coronary_arteriosclerosis = ca_heart_codelists$concept_id,
   heart_attack = mi_heart_codelists$concept_id
 ) |>
   newCodelist() |>
-  exportCodelist(path = here("codelists", "cancer"), type = "csv")
+  exportCodelist(path = here("codelists", "index"), type = "csv")
 
 # getting medications codelists ----
 medications <- getATCCodes(cdm = cdm, level = "ATC 1st", nameStyle = "{concept_name}")
