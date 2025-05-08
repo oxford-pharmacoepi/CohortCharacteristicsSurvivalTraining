@@ -23,8 +23,8 @@ jobs:
       - name: Restore renv environment
         working-directory: ./Website/
         run: |
-          install.packages("renv")
-          renv::restore()
+          Rscript -e 'install.packages("renv")'
+          Rscript -e 'renv::restore()'
 
       - name: Render Quarto site
         working-directory: ./Website/
