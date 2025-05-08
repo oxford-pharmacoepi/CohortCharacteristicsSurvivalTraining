@@ -79,7 +79,7 @@ Note there is a `getCodelists.R` with the code to generate the codelists.
 
 You can instantiate those cohorts with the following code:
 
-```{r}
+```{r, eval=FALSE}
 library(omopgenerics)
 library(CohortConstructor)
 
