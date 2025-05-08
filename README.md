@@ -3,7 +3,7 @@
 This training is split into introductory presentations and practical exercises.
 
 ## Presentations
-**CohortCharacteristics**: [here]([TBC](https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-team-training))
+**CohortCharacteristics**: [here](https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-team-training)
 **CohortSurvival**: [here](https://dpa-pde-oxford.quarto.pub/cohortsurvival/)
 
 ## Practical Exercises
