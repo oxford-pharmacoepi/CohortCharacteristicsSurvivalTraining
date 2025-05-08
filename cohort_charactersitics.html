@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>practical – CohortCharacteristics and CohortSurvival training</title>
+<title>cohort_charactersitics – CohortCharacteristics and CohortSurvival training</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="./practical.html" aria-current="page"> 
+    <a class="nav-link" href="./practical.html"> 
 <span class="menu-text">Practical</span></a>
   </li>  
 </ul>
@@ -146,83 +146,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="lets-get-started" class="level2">
-<h2 class="anchored" data-anchor-id="lets-get-started">Let’s get started</h2>
-<p>In this practical we are going to apply what we have learned from both presentations.</p>
-<ol type="1">
-<li><p>Let’s download the needed code and packages. We can download the repo from <a href="https://github.com/oxford-pharmacoepi/CohortCharacteristicsSurvivalTraining/archive/refs/heads/main.zip">here</a>.</p></li>
-<li><p>Open the <strong>Exercises</strong> project. Note your project is correctly open if in the top right of your R studio session it says <em>Exercises</em>.</p></li>
-<li><p>Open the <em>CodeToRun.R</em> file and install packages. Particulary, take install the development version of CohortCharacteristics.</p></li>
-</ol>
-<pre><code>library(pak)
-pkg_install("darwin-eu/CohortCharacteristics@release_100")</code></pre>
-<p>If you have problems installing the development version feel free to install from cran, just note that the new functions related to Large Scale Characteristics visualisation won’t be available for you. In that case you can install the cran version:</p>
-<pre><code>install.packages("CohortCharacteristics")</code></pre>
-</section>
-<section id="databases" class="level2">
-<h2 class="anchored" data-anchor-id="databases">Databases</h2>
-<p>We have prepared the practicals to be conducted in two synthetic databases:</p>
-<ul>
-<li><strong>synthea-breast_cancer-10k</strong></li>
-<li><strong>synthea-heart-10k</strong></li>
-</ul>
-<p>Separate into two groups, each one of them to use a different database.</p>
-<section id="characterisation" class="level3">
-<h3 class="anchored" data-anchor-id="characterisation">Characterisation</h3>
-<p>Both databases are a ~10,000 individual database of around 800 MB (it can take a bit to download if connection is not good). You can find the charcterisation of both databases in the following shiny app:</p>
-<p><a href="https://dpa-pde-oxford.shinyapps.io/eunomia_characterisation/" class="uri">https://dpa-pde-oxford.shinyapps.io/eunomia_characterisation/</a></p>
-</section>
-<section id="download-data-sets" class="level3">
-<h3 class="anchored" data-anchor-id="download-data-sets">Download data sets</h3>
-<p>Once selected the data set you are interested in you can download it using the following code:</p>
-<pre><code>library(here)
-library(CDMConnector)
-
-dbName &lt;- '...'
-
-# download the dataset
-Sys.setenv("EUNOMIA_DATA_FOLDER" = here())
-downloadEunomiaData(datasetName = dbName)</code></pre>
-<p>Then you can create the cdm_reference object as ususal:</p>
-<pre><code>library(duckdb)
-
-# create connection
-con &lt;- dbConnect(drv = duckdb(dbdir = eunomiaDir(datasetName = dbName)))
-
-# create cdm object
-cdm &lt;- cdmFromCon(con = con,
-                  cdmSchema = "main", 
-                  writeSchema = "main",
-                  cdmName = dbName)</code></pre>
-<p>Note the code is also available in the <code>CodeToRun.R</code> file.</p>
-</section>
-</section>
-<section id="cohorts-and-codelist" class="level2">
-<h2 class="anchored" data-anchor-id="cohorts-and-codelist">Cohorts and codelist</h2>
-<p>We have created 3 <a href="https://github.com/oxford-pharmacoepi/CohortCharacteristicsSurvivalTraining/tree/main/Exercises/codelists/index">codelists</a> to generate cohorts:</p>
-<ul>
-<li><em>breast_cancer</em></li>
-<li><em>coronary_arteriosclerosis</em></li>
-<li><em>heart_attack</em></li>
-</ul>
-<p>Note there is a <code>getCodelists.R</code> with the code to generate the codelists.</p>
-<p>You can instantiate those cohorts with the following code:</p>
-<pre><code>library(omopgenerics)
-library(CohortConstructor)
-
-cancer &lt;- importCodelist(path = here("codelists", "index"), type = "csv")
-cdm$index_cohorts &lt;- conceptCohort(cdm = cdm,
-                                   conceptSet = cancer,
-                                   name = "index_cohorts",
-                                   exit = "event_end_date",
-                                   useSourceFields = FALSE,
-                                   subsetCohort = NULL,
-                                   subsetCohortId = NULL)</code></pre>
-<p>Now we are ready to start the characterisation and survival practicals take a look to the <code>CodeToRun.R</code> file that contains what we have done so far and we are ready to start with the exercises:</p>
-<ul>
-<li><code>cohort_characteristics.R</code></li>
-<li><code>cohort_survival.R</code></li>
-</ul>
+<section id="presentation" class="level2">
+<h2 class="anchored" data-anchor-id="presentation">Presentation</h2>
+<iframe src="https://dpa-pde-oxford.quarto.pub/cohortcharacteristics/#/title-slide" width="100%" height="600px" style="border: none;">
+</iframe>
+<p>If you prefer you can find the presentation in full page <a href="https://dpa-pde-oxford.quarto.pub/cohortcharacteristics/#/title-slide">here</a>.</p>
 
 
 </section>
