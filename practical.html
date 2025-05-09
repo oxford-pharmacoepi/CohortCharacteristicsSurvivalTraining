@@ -195,13 +195,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li><p>Let’s download the needed code and packages. We can download the repo from <a href="https://github.com/oxford-pharmacoepi/CohortCharacteristicsSurvivalTraining/archive/refs/heads/main.zip">here</a>.</p></li>
 <li><p>Open the <strong>Exercises</strong> project. Note your project is correctly open if in the top right of your R studio session it says <em>Exercises</em>.</p></li>
-<li><p>Open the <em>CodeToRun.R</em> file and install packages. Particulary, take install the development version of CohortCharacteristics.</p></li>
+<li><p>Open the <em>CodeToRun.R</em> file and install packages. Particulary, install the development version of CohortCharacteristics.</p></li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pak)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pkg_install</span>(<span class="st">"darwin-eu/CohortCharacteristics@release_100"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pkg_install</span>(<span class="st">"darwin-eu/CohortCharacteristics@training"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If you have problems installing the development version feel free to install from cran, just note that the new functions related to Large Scale Characteristics visualisation won’t be available for you. In that case you can install the cran version:</p>
+<p>If you have problems installing the development version feel free to install from cran, just note that the new functions related to <strong>Large Scale Characteristics visualisation</strong> won’t be available for you. In that case you can install the cran version:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"CohortCharacteristics"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -262,9 +262,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(omopgenerics)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CohortConstructor)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cancer <span class="ot">&lt;-</span> <span class="fu">importCodelist</span>(<span class="at">path =</span> <span class="fu">here</span>(<span class="st">"codelists"</span>, <span class="st">"index"</span>), <span class="at">type =</span> <span class="st">"csv"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">importCodelist</span>(<span class="at">path =</span> <span class="fu">here</span>(<span class="st">"codelists"</span>, <span class="st">"index"</span>), <span class="at">type =</span> <span class="st">"csv"</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>cdm<span class="sc">$</span>index_cohorts <span class="ot">&lt;-</span> <span class="fu">conceptCohort</span>(<span class="at">cdm =</span> cdm,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">conceptSet =</span> cancer,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">conceptSet =</span> index,</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">name =</span> <span class="st">"index_cohorts"</span>,</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">exit =</span> <span class="st">"event_end_date"</span>,</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">useSourceFields =</span> <span class="cn">FALSE</span>,</span>
