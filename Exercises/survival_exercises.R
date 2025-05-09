@@ -24,6 +24,7 @@ cdm[["..."]] <- cdm[["..."]] %>%
 # Choices what is your outcome? 1) death or 2) another condition - you decide :)
 
 # if you are choosing death you need to create it
+# if this code does not work run the function on line 80
 cdm$death_cohort <- deathCohort(cdm, name = "death_cohort")
 
 
@@ -76,28 +77,96 @@ survival_analysis |>
 
 
 
+# creating a death cohort function
+deathCohort <- function(
+    cdm,
+    name,
+    subsetCohort = NULL,
+    subsetCohortId = NULL){
+  
+  name <- omopgenerics::validateNameArgument(name, validation = "warning")
+  cdm <- omopgenerics::validateCdmArgument(cdm)
+  omopgenerics::assertCharacter(subsetCohort, length = 1, null = TRUE)
+  if (!is.null(subsetCohort)) {
+    omopgenerics::validateCohortArgument(cdm[[subsetCohort]])
+    omopgenerics::validateCohortIdArgument(subsetCohortId,
+                                           cdm[[subsetCohort]],
+                                           validation = "error")
+  }
+  
+  if (is.null(subsetCohort)) {
+    subsetCohort <- as.character(NA)
+  }
+  if (is.null(subsetCohortId)) {
+    subsetCohortId <- as.numeric(NA)
+  }
+  cohortSetRef <- dplyr::tibble(
+    "cohort_definition_id" = 1L,
+    "cohort_name" = "death_cohort",
+    "subset_cohort_table" = subsetCohort,
+    "subset_cohort_id" = subsetCohortId
+  )
+  
+  cdm[[name]] <-  cdm$death |>
+    dplyr::mutate(cohort_definition_id = 1L) |>
+    dplyr::select("cohort_definition_id",
+                  "subject_id" = "person_id",
+                  "cohort_start_date" = "death_date",
+                  "cohort_end_date" ="death_date") |>
+    dplyr::compute(temporary = FALSE, name = name)
+  
+  cdm[[name]] <- cdm[[name]] |>
+    omopgenerics::newCohortTable(cohortSetRef = cohortSetRef,
+                                 .softValidation = TRUE)
+  
+  cdm[[name]] <-  cdm[[name]] |>
+    PatientProfiles::filterInObservation(indexDate = "cohort_start_date") |>
+    dplyr::compute(temporary = FALSE, name = name) |>
+    omopgenerics::recordCohortAttrition("Death record in observation")
+  
+  if (!is.na(subsetCohort)){
+    if (!is.na(subsetCohortId)){
+      cdm[[name]] <- cdm[[name]] |>
+        dplyr::inner_join(cdm[[subsetCohort]] |>
+                            dplyr::filter(.data$cohort_definition_id %in% subsetCohortId) |>
+                            dplyr::select("subject_id"),
+                          by = c("subject_id")) |>
+        dplyr::compute(
+          name = name,
+          temporary = FALSE,
+          overwrite = TRUE) |>
+        omopgenerics::recordCohortAttrition("In subset cohort")
+    }else{
+      cdm[[name]] <- cdm[[name]] |>
+        dplyr::inner_join(cdm[[subsetCohort]] |>
+                            dplyr::select("subject_id"),
+                          by = c("subject_id")) |>
+        dplyr::compute(
+          name = name,
+          temporary = FALSE,
+          overwrite = TRUE) |>
+        omopgenerics::recordCohortAttrition("In subset cohort")
+    }
+  }
+  
+  cdm[[name]] <- cdm[[name]] |>
+    dplyr::group_by(.data$subject_id) |>
+    dbplyr::window_order(.data$cohort_start_date) |>
+    dplyr::filter(dplyr::row_number()==1) |>
+    dplyr::select(
+      "cohort_definition_id", "subject_id", "cohort_start_date",
+      "cohort_end_date"
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::compute(
+      name = name,
+      temporary = FALSE,
+      overwrite = TRUE) |>
+    omopgenerics::recordCohortAttrition("First death record")
+  
+  cdm[[name]] <- omopgenerics::newCohortTable(table = cdm[[name]])
+  cli::cli_inform(c("v" = "Cohort {.strong {name}} created."))
+  
+  return(cdm[[name]])
+}
 
-
-
-
-
-###################################################################################
-# competing risks # extra code #
-
-ca_mi_death <- estimateCompetingRiskSurvival(cdm = cdm,
-                                             targetCohortTable = "...",
-                                             outcomeCohortTable = "...",
-                                             competingOutcomeCohortTable = "...",
-                                             followUpDays = 1825,
-                                             strata = list(c("age_group"),
-                                                           c("sex"),
-                                                           c("age_group", "sex"))) 
-
-ca_mi_death |>
-  filterStrata(age_group == "overall") |> # to get only sex stratifications
-  plotSurvival(cumulativeFailure = TRUE,
-               colour = c("variable", "sex"))
-
-ca_mi_death |> 
-  filterStrata(age_group == "overall") |> # to get only sex stratifications
-  tableSurvival() 
