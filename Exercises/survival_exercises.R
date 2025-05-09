@@ -16,7 +16,8 @@ cdm[["..."]] <- cdm[["..."]] %>%
         list(
           "add age group bands here"
         )
-    )
+    ),
+    name = "..." # preferably use the same to prevent errors in the future
   )
 
 # 2: get your outcome cohorts ----------------
@@ -84,9 +85,9 @@ survival_analysis |>
 # competing risks # extra code #
 
 ca_mi_death <- estimateCompetingRiskSurvival(cdm = cdm,
-                                             targetCohortTable = "ca",
-                                             outcomeCohortTable = "heart_attack",
-                                             competingOutcomeCohortTable = "death_cohort",
+                                             targetCohortTable = "...",
+                                             outcomeCohortTable = "...",
+                                             competingOutcomeCohortTable = "...",
                                              followUpDays = 1825,
                                              strata = list(c("age_group"),
                                                            c("sex"),

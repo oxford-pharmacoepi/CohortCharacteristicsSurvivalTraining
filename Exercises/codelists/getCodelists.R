@@ -1,6 +1,8 @@
 library(omopgenerics)
 library(CodelistGenerator)
 library(here)
+library(purrr)
+library(dplyr)
 
 # getting cancer codelists ----
 # how to we got the codelists you are using for your study
@@ -26,5 +28,24 @@ list(
   exportCodelist(path = here("codelists", "index"), type = "csv")
 
 # getting medications codelists ----
-medications <- getATCCodes(cdm = cdm, level = "ATC 1st", nameStyle = "{concept_name}")
+medications <- getATCCodes(cdm = cdm, level = "ATC 1st", nameStyle = "{concept_name}") |>
+  map(\(x) tibble(concept_id = x)) |>
+  bind_rows(.id = "codelist_name")
+cdm <- insertTable(cdm = cdm, name = "test", table = medications)
+medications <- cdm$test |> 
+  inner_join(
+    cdm$concept |>
+      select("concept_id", "domain_id"),
+    by = "concept_id"
+  ) |>
+  filter(domain_id == "Drug") |>
+  collect() |>
+  group_by(codelist_name) |>
+  group_split() |>
+  as.list()
+names(medications) <- map_chr(medications, \(x) unique(x$codelist_name))
+medications <- medications |>
+  map(\(x) unique(x$concept_id)) |>
+  newCodelist()
+  
 exportCodelist(x = medications, path = here("codelists", "medications"), type = "csv")

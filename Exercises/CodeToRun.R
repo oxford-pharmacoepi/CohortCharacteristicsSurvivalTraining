@@ -17,7 +17,7 @@ install.packages("pak") # Any
 # In this practical, we will test the new release of CohortCharacteristics.
 # We'll install then the GitHub version.
 library(pak)
-pkg_install("darwin-eu/CohortCharacteristics@release_100")
+pkg_install("darwin-eu/CohortCharacteristics@training") # 0.6.0
 
 # Note: Typically, you'd install the CRAN version using:
 # install.packages("CohortCharacteristics")
@@ -34,6 +34,7 @@ library(PatientProfiles)
 library(omopgenerics)
 library(dplyr)
 library(here)
+library(plotly)
 
 # create the cdm object ----
 
@@ -80,14 +81,14 @@ cdm$drug_exposure |>
   arrange(desc(n)) 
 
 # cancer codelists ----
-cancer <- importCodelist(path = here("codelists", "index"), type = "csv")
-cancer
+index <- importCodelist(path = here("codelists", "index"), type = "csv")
+index
 # if you are interested in how we got these codelists see the code in:
 # `codelists/getCodelists.R` 
 
 # cancer cohorts ----
 cdm$index_cohorts <- conceptCohort(cdm = cdm,
-                                   conceptSet = cancer,
+                                   conceptSet = index,
                                    name = "index_cohorts",
                                    exit = "event_end_date",
                                    useSourceFields = FALSE,

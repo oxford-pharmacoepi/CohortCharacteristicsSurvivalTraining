@@ -7,14 +7,14 @@ In this practical we are going to apply what we have learned from both presentat
 
 2. Open the **Exercises** project. Note your project is correctly open if in the top right of your R studio session it says *Exercises*.
 
-3. Open the *CodeToRun.R* file and install packages. Particulary, take install the development version of CohortCharacteristics.
+3. Open the *CodeToRun.R* file and install packages. Particulary, install the development version of CohortCharacteristics.
 
 ```{r, eval=FALSE}
 library(pak)
-pkg_install("darwin-eu/CohortCharacteristics@release_100")
+pkg_install("darwin-eu/CohortCharacteristics@training")
 ```
 
-If you have problems installing the development version feel free to install from cran, just note that the new functions related to Large Scale Characteristics visualisation won't be available for you. In that case you can install the cran version:
+If you have problems installing the development version feel free to install from cran, just note that the new functions related to **Large Scale Characteristics visualisation** won't be available for you. In that case you can install the cran version:
 
 ```{r, eval=FALSE}
 install.packages("CohortCharacteristics")
@@ -83,9 +83,9 @@ You can instantiate those cohorts with the following code:
 library(omopgenerics)
 library(CohortConstructor)
 
-cancer <- importCodelist(path = here("codelists", "index"), type = "csv")
+index <- importCodelist(path = here("codelists", "index"), type = "csv")
 cdm$index_cohorts <- conceptCohort(cdm = cdm,
-                                   conceptSet = cancer,
+                                   conceptSet = index,
                                    name = "index_cohorts",
                                    exit = "event_end_date",
                                    useSourceFields = FALSE,
